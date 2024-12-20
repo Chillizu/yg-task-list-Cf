@@ -5,19 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const messagesDiv = document.getElementById('messages');
     const passwordInput = document.getElementById('passwordInput'); // 密码输入框
     const container = document.querySelector('.container'); // 容器
-    const fetch = require('node-fetch');
+    const axios = require('axios');
     //workers.test
     const correctPassword = '70727'; // 设置正确的密码
-    if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
-        // 开发环境使用 XMLHttpRequest
-        const { XMLHttpRequest } = require('xmlhttprequest');
-        global.XMLHttpRequest = XMLHttpRequest;
-      } else {
-        // 生产环境使用 fetch
-        const makeRequest = async (url, options) => {
-          return fetch(url, options);
-        }
-      }
 
     // 点击按钮时显示密码输入框
     showPasswordButton.addEventListener('click', function () {
@@ -46,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 从后端 API 加载留言
     function loadMessages() {
         messagesDiv.innerHTML = ''; // 清空消息容器
-        fetch('http://localhost:3000/api/messages')
-            .then(response => response.json())
-            .then(messages => {
+        axios.get('http://localhost:3000/api/messages')
+            .then(response => {
+                const messages = response.data;
                 messages.forEach((message, index) => {
                     displayMessage(message.text, message.date, index); // 显示留言和日期
                 });
@@ -89,9 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function deleteMessage(index, messageElem) {
-        fetch(`http://localhost:3000/api/messages/${index}`, {
-            method: 'DELETE'
-        })
+        axios.delete(`http://localhost:3000/api/messages/${index}`)
             .then(() => {
                 location.reload(); // 删除后刷新页面
             })
@@ -110,15 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const messageDate = new Date().toLocaleDateString('zh-CN'); // 获取日期
 
         // 保存留言到后端 API
-        fetch('http://localhost:3000/api/messages', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ text: messageText, date: messageDate })
+        axios.post('http://localhost:3000/api/messages', {
+            text: messageText,
+            date: messageDate
         })
-            .then(response => response.json())
-            .then(newMessage => {
+            .then(response => {
                 messageInput.value = ''; // 清空输入框内容
                 location.reload(); // 添加留言后刷新页面
             })
