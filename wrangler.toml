@@ -8,3 +8,5 @@ account_id = "2bd2e037a56bddc2449360092b62cc21"
 zone_id = "22fc705c7ea57686226166a935e2e88c"
 [build.upload]
 format = "service-worker"
+[observability.logs]
+enabled = true
