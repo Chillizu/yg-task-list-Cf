@@ -9,7 +9,8 @@ let messages = [];
 // 获取所有消息
 router.get('/api/messages', () => {
   const response = json(messages);
-  response.headers.set('Access-Control-Allow-Origin', '*'); // 添加 CORS 头部
+  // 添加 CORS 头部
+  response.headers.set('Access-Control-Allow-Origin', 'https://yg-task-list-cf.pages.dev'); // 替换为你允许的源
   return response;
 });
 
@@ -18,7 +19,8 @@ router.post('/api/messages', async (request) => {
   const { text, date } = await request.json();
   messages.push({ text, date });
   const response = json({ message: 'Message added successfully' });
-  response.headers.set('Access-Control-Allow-Origin', '*'); // 添加 CORS 头部
+  // 添加 CORS 头部
+  response.headers.set('Access-Control-Allow-Origin', 'https://yg-task-list-cf.pages.dev'); // 替换为你允许的源
   return response;
 });
 
@@ -32,7 +34,18 @@ router.delete('/api/messages/:index', ({ params }) => {
   } else {
     response = json({ error: 'Invalid index' }, { status: 400 });
   }
-  response.headers.set('Access-Control-Allow-Origin', '*'); // 添加 CORS 头部
+  // 添加 CORS 头部
+  response.headers.set('Access-Control-Allow-Origin', 'https://yg-task-list-cf.pages.dev'); // 替换为你允许的源
+  return response;
+});
+
+// 处理预检请求 (OPTIONS)
+router.options('/api/messages', () => {
+  const response = new Response(null, { status: 204 });
+  // 添加 CORS 头部
+  response.headers.set('Access-Control-Allow-Origin', 'https://yg-task-list-cf.pages.dev'); // 替换为你允许的源
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS'); // 允许的HTTP方法
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type'); // 允许的自定义头部
   return response;
 });
 
