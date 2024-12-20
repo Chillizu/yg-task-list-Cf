@@ -6,8 +6,6 @@ workers_dev = true
 API_KEY = "f-POJIkm9G9zO9rwHRT5VIUMQoqQsvVAM_ROIbqW"
 account_id = "2bd2e037a56bddc2449360092b62cc21"
 zone_id = "22fc705c7ea57686226166a935e2e88c"
-[build]
-command = "npm run build"
 [build.upload]
 format = "service-worker"
 [site]
