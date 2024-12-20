@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 从后端 API 加载留言
     function loadMessages() {
         messagesDiv.innerHTML = ''; // 清空消息容器
-        axios.get('https://messages-api.chillizu.workers.dev/api/messages')
+        axios.get('https://messages-api.yizhou-chi.workers.dev/api/messages')
             .then(response => {
                 const messages = response.data;
                 messages.forEach((message, index) => {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function deleteMessage(index, messageElem) {
-        axios.delete(`https://messages-api.chillizu.workers.dev/api/messages/${index}`)
+        axios.delete(`https://messages-api.yizhou-chi.workers.dev/api/messages/${index}`)
             .then(() => {
                 location.reload(); // 删除后刷新页面
             })
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const messageDate = new Date().toLocaleDateString('zh-CN'); // 获取日期
 
         // 保存留言到后端 API
-        axios.post('https://messages-api.chillizu.workers.dev/api/messages', {
+        axios.post('https://messages-api.yizhou-chi.workers.dev/api/messages', {
             text: messageText,
             date: messageDate
         })
