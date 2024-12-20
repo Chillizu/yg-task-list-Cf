@@ -8,11 +8,12 @@
     "start": "node src/app.js"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "xmlhttprequest": "^1.8.0",
     "node-fetch": "^2.6.1",
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.0.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }
