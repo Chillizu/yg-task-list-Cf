@@ -42,6 +42,11 @@ router.options('/api/messages', () => {
   return Promise.resolve(response); // 确保返回 Promise
 });
 
+// 添加一个默认的 404 处理
+router.all('*', () => {
+  return Promise.resolve(new Response('Not Found', { status: 404 }));
+});
+
 // 处理所有请求
 addEventListener('fetch', (event) => {
   // 确保路由处理返回一个 Promise
